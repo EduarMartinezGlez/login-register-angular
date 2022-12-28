@@ -1,34 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
-import { environment } from 'src/environments/environment';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
-
-  siteKey:string
-  constructor(
-    private recaptchaService:ReCaptchaV3Service,
-    private fb:FormBuilder
-    ){
-    this.siteKey = environment.siteKey
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  loginForm: FormGroup= this.fb.group({
-    email: ['',[
-      Validators.required,
-      Validators.email,
-      Validators.pattern(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/)
-     ]],
-    password:['',[ Validators.pattern(
-      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/
-      )]]
-  })
+export class LoginComponent {
+constructor(private fb:FormBuilder ){}
+loginForm: FormGroup = this.fb.group({
+  email:['', [Validators.required,
+              Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
+            ]],
+  password:['',[
+    Validators.required,
+     Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
+  ]]
+})
+login(){
+  console.log(this.loginForm.valid)
+  console.log(this.loginForm.value)
+}
 }
