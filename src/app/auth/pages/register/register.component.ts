@@ -27,8 +27,8 @@ export class RegisterComponent {
     ]],
      confirmPassword:['',[
       Validators.required,
-      this.passwordMatch
-       //Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
+      this.passwordMatch,
+       Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
     ]]
 
   })
@@ -37,6 +37,8 @@ export class RegisterComponent {
     console.log(this.registerForm.value)
   }
   passwordMatch(password: string, confirmPassword: string): ValidatorFn {
+    console.log('pas en la func match', password);
+
     return (formGroup: AbstractControl): { [key: string]: any } | null => {
       const passwordControl = formGroup.get(password);
       const confirmPasswordControl = formGroup.get(confirmPassword);

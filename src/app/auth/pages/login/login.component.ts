@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-constructor(private fb:FormBuilder ){}
+constructor(
+  private fb:FormBuilder,
+  private authService: AuthService
+   ){}
 loginForm: FormGroup = this.fb.group({
   email:['', [Validators.required,
               Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
@@ -20,5 +24,10 @@ loginForm: FormGroup = this.fb.group({
 login(){
   console.log(this.loginForm.valid)
   console.log(this.loginForm.value)
+  const {email, password}= this.loginForm.value
+  this.authService.login(email, password)
+  .subscribe(resp =>{
+    console.log(resp)
+  })
 }
 }
