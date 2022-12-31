@@ -39,7 +39,7 @@ export class AuthService {
         console.log('valor de la respuesta',val[0].role);
         ;
       }),//executa el codigo antes que pase al otro operador
-    map(resp => resp),
+    map(resp => resp),//el servicio le pasa el valor al componente
     catchError(err=> of(false) )
    )
   }
