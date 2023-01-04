@@ -7,24 +7,28 @@
             [formGroup]="registerForm"
         (ngSubmit)="register()"
             action=""
-            method="get">
+            method="post">
 
               <h1 class="mb-8 text-3xl text-center">Sign up</h1>
               <input
               type="text"
               class="block border border-grey-light w-full p-3 rounded mb-4"
              formControlName="name"
+             require
               placeholder="Name" />
 
               <input
               type="text"
               class="block border border-grey-light w-full p-3 rounded mb-4"
-            formControlName="lastname"
-              placeholder="Last Name" />
+            formControlName="lastName"
+            require
+              placeholder="LastName" />
+
               <input
               type="number"
               class="block border border-grey-light w-full p-3 rounded mb-4"
             formControlName="phone"
+            require
             min="0"
               placeholder="Phone Number" />
 
@@ -32,17 +36,20 @@
               type="email"
               class="block border border-grey-light w-full p-3 rounded mb-4"
               formControlName="email"
+              require
               placeholder="Email" />
 
               <input
               type="password"
               class="block border border-grey-light w-full p-3 rounded mb-4"
               formControlName="password"
+              require
               placeholder="Password" />
               <input
               type="password"
               class="block border border-grey-light w-full p-3 rounded mb-4"
               formControlName="confirmPassword"
+              require
               placeholder="Confirm Password" />
 
               <div class="flex items-center justify-center">

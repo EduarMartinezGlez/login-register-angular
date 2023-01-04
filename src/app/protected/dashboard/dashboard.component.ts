@@ -16,6 +16,7 @@ constructor(private router:Router,
   }
 
 logout(){
+  this.userService.logOut()
   this.router.navigateByUrl('/auth')
 }
 }

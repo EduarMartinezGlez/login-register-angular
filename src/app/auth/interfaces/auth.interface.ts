@@ -1,7 +1,8 @@
 export interface AuthResponse{
     id?: string,
-    resp?:boolean,
+   // resp?:boolean,
     name?:string,
+    lastName?:string
     email?:string,
 		password?: string,
 		role?: string,
@@ -10,6 +11,7 @@ export interface AuthResponse{
 export interface User{
     id:string,
     //resp:boolean,
+    lastName:string
     name:string,
     role:string,
     token:string,

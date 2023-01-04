@@ -33,6 +33,8 @@ export class AuthService {
             this._user = {
               id: val[0].id!,
               // resp:true,
+              lastName:val[0].lastName,
+
               name: val[0].name!,
               role: val[0].role!,
               token: resp.token!,
@@ -64,5 +66,36 @@ export class AuthService {
         catchError(err => of(false))
       )
   }
+logOut(){
+  localStorage.clear()
+}
+register(name:string, lastName:string, phone:string, user:object ) {
+  const url = `${this.baseUrl}/customers`
+  const body = { name, lastName, phone, user }
+  return this.http.post<AuthResponse>(url, body)
+    .pipe(
+      tap(resp => {
+       // const val = Object.values(resp)
+        console.log('la respuesta en el servicio', resp.id);
+
+        if (resp.role) {
+          localStorage.setItem('token', resp.token!)
+          this._user = {
+            id: resp.id!,
+            name: resp.name!,
+            lastName: resp.lastName!,
+            role: resp.role!,
+            token: resp.token!,
+            email: resp.email!
+          }
+        }
+        ;
+      }),//executa el codigo antes que pase al otro operador
+      map(resp =>
+        // resp =this._user
+        resp),//el servicio le pasa el valor al componente
+      catchError(error => of(error))
+    )
+}
 
 }
