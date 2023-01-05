@@ -19,7 +19,7 @@ export class AuthService {
   get user() {
     return { ...this._user }
   }
-
+//send the email and password to the backend
   login(email: string, password: string) {
     const url = `${this.baseUrl}/auth/login`
     const body = { email, password }
