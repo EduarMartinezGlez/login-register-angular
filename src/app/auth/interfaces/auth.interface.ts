@@ -17,3 +17,6 @@ export interface User{
     token:string,
     email:string
 }
+export interface RecoveryByEmail{
+  email:string
+}

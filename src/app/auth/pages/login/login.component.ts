@@ -7,9 +7,13 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss',
+],
 })
 export class LoginComponent {
+
+
+  isValid: boolean = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -33,6 +37,26 @@ export class LoginComponent {
       ],
     ],
   });
+
+
+  validedCamp(field:string){
+    const control = this.loginForm.get(field);
+console.log('probando el metodo get  ',control );
+
+if (control?.valid && control.touched) {
+  // Si el campo es válido y ha sido tocado, muestra un mensaje de campo válido
+  console.log("true");
+
+  return this.isValid = true;
+
+            }else if(!control?.touched){
+              return this.isValid = true
+            }
+            else{
+              console.log('false:');
+              return this.isValid = false
+            }
+   }
   login() {
     console.log(this.loginForm.valid);
     console.log(this.loginForm.value);
@@ -47,10 +71,14 @@ export class LoginComponent {
           title: 'Oops...',
           text: 'unauthorized',
         });
-      } else {
-        val[0].role === 'Admin'
-        console.log('respuesta si if es igal a admin', val[0].role);
+
+    } if ( val[0].role === 'Admin' )
+      {
+      //  console.log('respuesta si if es igal a admin', val[0].role);
         this.router.navigateByUrl('/dashboard');
+      }else{
+        val[0].role === 'costumers'
+        this.router.navigateByUrl('/recovery');
       }
     })
     //   console.log("respuesta en el componente login",val[0].role)
