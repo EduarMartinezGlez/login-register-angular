@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path:'',
     children:[
+      //add the route to grafic
       {path:'', component:DashboardComponent},
       {path:'**', redirectTo:''}
     ]
