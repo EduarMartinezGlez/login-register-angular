@@ -13,6 +13,7 @@ const routes: Routes = [
     {path:'register',component:RegisterComponent},
     {path:'recovery',component:RecoveryComponent},
     {path:'recoverybyemail',component:RecoveryByEmailComponent},
+    {path:'recovery/:token',component:RecoveryComponent},
     {path:'**', redirectTo:'login'}
   ]}
 ];

@@ -25,28 +25,29 @@ export class RecoveryByEmailComponent {
     ],
 })
 recovery() {
-  console.log(this.recoveryForm.valid);
-  console.log(this.recoveryForm.value);
-  const { email } = this.recoveryForm.value;
-  this.authService.recoveryPassword(email).subscribe(resp => {
+  //console.log(this.recoveryForm.valid);
+  //console.log(this.recoveryForm.value);
+  const  {email}  = this.recoveryForm.value;
+console.log('el email dentro del form', email);
+
+  this.authService.recoveryPassword(email).subscribe(result => {
     //todo funciona, sale swal, y entra al dashboard
-    console.log('la resp en componente',resp);
-    if(!resp){
+    const {message} = result
+   // console.log('la resp en componente',message);
+    if(!result){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: resp.error,
+        text: result.error,
       });
     }else{
-
+      Swal.fire({
+        icon: 'success',
+        title: 'OK',
+        text: message,
+      });
+    //  this.router.navigateByUrl('/recoverybyemail');
     }
 })
-}//else{
- // val[0].role === 'costumers'
-  //this.router.navigateByUrl('/prod');
-//}
-//})
-//   console.log("respuesta en el componente login",val[0].role)
-//};
-
+}
 }

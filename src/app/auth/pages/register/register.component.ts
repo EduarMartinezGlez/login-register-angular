@@ -84,7 +84,7 @@ export class RegisterComponent {
         });
       } else {
         //val[0].role === 'Admin';
-        this.router.navigateByUrl('/product');
+        this.router.navigateByUrl('/');
       }
     });
     console.log(this.registerForm.valid);

@@ -11,14 +11,13 @@ import { AuthService } from '../../services/auth.service';
 ],
 })
 export class LoginComponent {
-
-
   isValid: boolean = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) { }
+
   loginForm: FormGroup = this.fb.group({
     email: [
       '',
@@ -41,12 +40,11 @@ export class LoginComponent {
 
   validedCamp(field:string){
     const control = this.loginForm.get(field);
-console.log('probando el metodo get  ',control );
+//console.log('probando el metodo get  ',control );
 
 if (control?.valid && control.touched) {
   // Si el campo es válido y ha sido tocado, muestra un mensaje de campo válido
-  console.log("true");
-
+  //console.log("true");
   return this.isValid = true;
 
             }else if(!control?.touched){
@@ -58,12 +56,16 @@ if (control?.valid && control.touched) {
             }
    }
   login() {
-    console.log(this.loginForm.valid);
-    console.log(this.loginForm.value);
+    // console.log(this.loginForm.valid);
+    // console.log(this.loginForm.value);
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(resp => {
       //todo funciona, sale swal, y entra al dashboard
-      const val = Object.values(resp);
+      console.log('valor de la resp', resp);
+
+     // ;
+    //  console.log('el valor del login el rol',val[0].role);
+
       if (resp === false) {
         console.warn('resp en ifelse', resp);
         Swal.fire({
@@ -72,7 +74,8 @@ if (control?.valid && control.touched) {
           text: 'unauthorized',
         });
 
-    } if ( val[0].role === 'Admin' )
+    }const val = Object.values(resp)
+    if (  val[0].role === 'Admin' )
       {
       //  console.log('respuesta si if es igal a admin', val[0].role);
         this.router.navigateByUrl('/dashboard');

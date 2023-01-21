@@ -30,7 +30,6 @@
              class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
              [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500 focus:ring-red-500': !isValid,'text-gray-900 placeholder-gray-500 border-gray-300': isValid}"
              >
-             {{isValid}}
              <div *ngIf="!validedCamp('email')" class="p-4 mb-4 text-sm text-red-700  rounded-lg  dark:text-red-400" role="alert">
               <span class="font-medium">!</span>The email is invalid!.
             </div>
@@ -50,7 +49,6 @@
             [ngClass]="{'border-red-300 text-red-900 placeholder-red-500 focus:border-red-500 focus:ring-red-500': !isValid, 'text-gray-900 placeholder-gray-500 border-gray-300': isValid}"
             placeholder="Password">
           </div>
-          {{isValid}}
           <div *ngIf="!validedCamp('password')" class="p-4 mb-4 text-sm text-red-700  rounded-lg  dark:text-red-400" role="alert">
             <span class="font-medium">!</span>The password is invalid!.
           </div>
