@@ -23,7 +23,9 @@ export class DashboardComponent implements OnInit {
     this.userService.logOut()
     this.router.navigateByUrl('/auth')
   }
-
+  Product(){
+    this.router.navigateByUrl('/dashboard/Products')
+  }
   ngOnInit() {
 
     this.dashboard.visitorFunc().subscribe((data) => {
