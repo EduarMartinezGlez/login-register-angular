@@ -66,15 +66,15 @@ export class RegisterComponent {
       ],
     ],
   });
+
   register() {
     const { name, lastName, phone, email, password } = this.registerForm.value;
     const user = { email, password };
-    const data = { name, lastName, phone , user};
 
     this.authService.register(name, lastName, phone , user).subscribe((resp) => {
       //todo funciona, sale swal, y entra al dashboard
      // const val = Object.values(resp);
-      console.log('resputa en el coponente', resp);
+     // console.log('resputa en el coponente', resp);
 
       if (resp.error) {
         Swal.fire({
@@ -87,7 +87,7 @@ export class RegisterComponent {
         this.router.navigateByUrl('/');
       }
     });
-    console.log(this.registerForm.valid);
+    //console.log(this.registerForm.valid);
   }
   passwordMatch(password: string, confirmPassword: string): ValidatorFn {
     return (formGroup: AbstractControl): { [key: string]: any } | null => {
