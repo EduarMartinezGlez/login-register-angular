@@ -54,7 +54,6 @@ if (control?.valid && control.touched) {
             }
    }
   login() {
-
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(resp => {
       //todo funciona, sale swal, y entra al dashboard

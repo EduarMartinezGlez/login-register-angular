@@ -42,9 +42,7 @@ export class AuthService {
         }
       }), //executa el codigo antes que pase al otro operador
       map(
-        (resp) =>
-
-          resp
+        (resp) => resp
       ), //el servicio le pasa el valor al componente
       catchError((err) => of(false))
     );

@@ -9,7 +9,7 @@ import { ModalModule } from "./modal/modal.module";
 import { AddproductsComponent } from './addproducts/addproducts.component';
 import { ProtectedDirective } from '../protected.directive';
 import { OnlyPositveNumberDirective } from './only-positve-number.directive'
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -28,7 +28,8 @@ import { OnlyPositveNumberDirective } from './only-positve-number.directive'
         ReactiveFormsModule,
         ProtectedRoutingModule,
         ModalModule,
-        FormsModule
+        FormsModule,
+        SweetAlert2Module
     ]
 })
 export class ProtectedModule { }

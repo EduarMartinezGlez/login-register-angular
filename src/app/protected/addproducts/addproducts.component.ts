@@ -32,6 +32,7 @@ export class AddproductsComponent {
     private formBuilder: FormBuilder,
     private service: DashboardService,
     private http: HttpClient,
+    private router: Router
 
   ) {}
   getData() {
@@ -43,9 +44,9 @@ export class AddproductsComponent {
     this.getData().pipe(
       map(array => array['map']((element: { name: any; }) => element.name))
     ).subscribe(names => {
-      console.log('los nombre', names);
+     // console.log('los nombre', names);
       this.resp= names
-      console.log('array', this.resp);
+     // console.log('array', this.resp);
 
       });
 
@@ -71,25 +72,27 @@ export class AddproductsComponent {
     }
   }
   onFileSelected(event: any) {
-    console.log(event);
+  //  console.log(event);
     if (event && event.target && event.target.files) {
       this.selectedFile = event.target.files[0];
       this.imageName = this.selectedFile.name;
-      console.log('el selectfile', this.selectedFile);
+  //    console.log('el selectfile', this.selectedFile);
     }
   }
 
   /**
+   *
+   *
    * We create a new FormData object, append the form values to it, and then append the file to it
    */
   AddProd() {
-    console.log('selecat', this.Form.value);
-
     const { productname, category, price, productdetails } = this.Form.value;
     this.service
       .sendForm(this.selectedFile, productname, category, price, productdetails)
       .subscribe((response) => {
-        console.log('el response en el componente', response);
-      });
+        console.log('reesponse en addprodu', response);
+        this.service.setProduct(response)
+        response});
+      this.router.navigateByUrl('/dashboard/Products')
   }
 }

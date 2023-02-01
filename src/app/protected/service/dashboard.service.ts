@@ -16,11 +16,24 @@ export class DashboardService {
   private _product!: Product
   private _category!: Category
   private visitors: any
+  private data:any
+
   constructor(private http: HttpClient) { }
 
-  get product() {
-    return { ...this._product };
+ async setProduct(prodData:any) {
+    console.log('el proddata en el servicio', prodData);
+
+    this.data =await prodData
+    console.log('en el set del servicio ', this.data);
+    return this.data
+
   }
+  get getProduct(){
+    console.log('en el get de servicio ', this._product);
+
+    return  {...this._product}
+  }
+
   get category(){
     return{ ...this._category}
   }
@@ -40,7 +53,7 @@ export class DashboardService {
 
   sendForm(file: File, productname: string, category: string, price: string, productdetails: string) {
 
-    console.log('el archivo y la data en el form', productname, category, price, productdetails);
+   // console.log('el archivo y la data en el form', productname, category, price, productdetails);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('name', productname);
@@ -49,18 +62,20 @@ export class DashboardService {
     formData.append('description', productdetails);
     const url = `${this.baseUrl}/products`;
     return this.http.post<AddProdResponse>(url, formData).pipe(
-      tap((resp) => {
+      map(resp => {
+        console.log('el resp map en el servivio de post', resp);
         this._product = {
-          id: resp.id!,
-          name: resp.name!,
-          category: resp.category!,
-          brand: resp.brand!,
-          price: resp.price!,
-          desciption: resp.desciption!,
-          image: resp.image!
-        }
-      }),
-      map(resp => resp),
+              id: resp.id!,
+              name: resp.name!,
+              categoryId: resp.categoryId!,
+            //  brand: resp.brand!,
+              price: resp.price!,
+              description: resp.description!,
+              image: resp.image!
+            }
+        console.log('el resp map en el servivio de post el _product', this._product);
+
+        resp}),
       catchError(error => of(error))
     )
   }
@@ -70,16 +85,38 @@ getCategory(){
     return this.http.get(url).pipe(
       map(resp => {
        const response = Object.entries(resp).forEach(([key, value]) => {
-          console.log('en el servicio', value)
+
           })
-          console.log('el response',);
 
           return response
         }
-
     )
     )
 }
+deleteProd(id:number){
+  const url = `${this.baseUrl}/products/${id}`;
+  return this.http.delete(url).pipe(
 
+  catchError(error => of(error))
+
+  )
+}
+getProducts(limit:number, offset:number) {
+  const url = `${this.baseUrl}/products?limit=${limit}&offset=${offset}`;
+  return this.http.get(url).pipe(
+    map(
+
+      (resp)=>{
+        console.log('la response en el servicio', resp);
+
+        return resp
+      }
+      ),
+
+  catchError(error => of(error))
+  )
+
+
+}
 
 }

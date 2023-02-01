@@ -2,19 +2,18 @@ export interface AddProdResponse{
     id?: string,
    // resp?:boolean,
     name?:string,
-    category?:string
-    brand?:string,
+    categoryId?:number
 		price?: number,
-		desciption?: string,
+		description?: string,
     image?:string
 }
 export interface Product{
   id: string,
   name:string,
-  category:string,
-  brand:string,
+  categoryId:number,
+ // brand:string
   price: number,
-  desciption: string,
+  description: string,
   image:string
 }
 export interface Category{
@@ -24,7 +23,7 @@ export interface Category{
   image:string
 }
 export interface RespCategory{
-  map(arg0: ({ nombre, edad }: { nombre: any; edad: any }) => string): unknown
+ // map(arg0: ({ nombre, edad }: { nombre: any; edad: any }) => string): unknown
   length: number
   id?: string,
   name?:string,
