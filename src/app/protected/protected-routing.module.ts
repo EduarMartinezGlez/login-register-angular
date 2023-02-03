@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductComponent } from './product/product.component';
 import { UsersComponent } from './users/users.component';
 import { AddproductsComponent } from './addproducts/addproducts.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
       {path:'users', component:UsersComponent},
       {path:'Products', component:ProductComponent},
       {path:'AddProducts', component:AddproductsComponent},
+      {path:'EditProducts', component:EditproductComponent},
 
       {path:'**', redirectTo:''}
     ]

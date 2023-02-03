@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss',
-],
+  ],
 })
 export class LoginComponent {
   isValid: boolean = true;
@@ -38,21 +38,21 @@ export class LoginComponent {
   });
 
 
-  validedCamp(field:string){
+  validedCamp(field: string) {
     const control = this.loginForm.get(field);
 
-if (control?.valid && control.touched) {
-  // Si el campo es válido y ha sido tocado, muestra un mensaje de campo
-  return this.isValid = true;
+    if (control?.valid && control.touched) {
+      // Si el campo es válido y ha sido tocado, muestra un mensaje de campo
+      return this.isValid = true;
 
-            }else if(!control?.touched){
-              return this.isValid = true
-            }
-            else{
-              console.log('false:');
-              return this.isValid = false
-            }
-   }
+    } else if (!control?.touched) {
+      return this.isValid = true
+    }
+    else {
+      console.log('false:');
+      return this.isValid = false
+    }
+  }
   login() {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe(resp => {
@@ -66,12 +66,11 @@ if (control?.valid && control.touched) {
           text: 'unauthorized',
         });
 
-    }const val = Object.values(resp)
-    if (  val[0].role === 'Admin' )
-      {
-      //  console.log('respuesta si if es igal a admin', val[0].role);
+      } const val = Object.values(resp)
+      if (val[0].role === 'Admin') {
+        //  console.log('respuesta si if es igal a admin', val[0].role);
         this.router.navigateByUrl('/dashboard');
-      }else{
+      } else {
         val[0].role === 'costumers'
         this.router.navigateByUrl('/recovery');
       }

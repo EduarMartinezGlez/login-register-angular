@@ -15,6 +15,7 @@ export class DashboardService {
   private baseUrl = environment.baseUrl;
   private _product!: Product
   private _category!: Category
+  private _id!:number
   private visitors: any
   private data:any
 
@@ -34,6 +35,9 @@ export class DashboardService {
     return  {...this._product}
   }
 
+  get idProd(){
+    return this._id
+  }
   get category(){
     return{ ...this._category}
   }
@@ -73,6 +77,7 @@ export class DashboardService {
               description: resp.description!,
               image: resp.image!
             }
+           // localStorage.('lastItem', this._product)
         console.log('el resp map en el servivio de post el _product', this._product);
 
         resp}),
@@ -96,10 +101,21 @@ getCategory(){
 deleteProd(id:number){
   const url = `${this.baseUrl}/products/${id}`;
   return this.http.delete(url).pipe(
-
   catchError(error => of(error))
-
   )
+}
+editProduct(id: number, body: object){
+   // const url = `${this.baseUrl}/products?id=${id}`
+  
+}
+recoveryProdById(id:number){
+  this._id = id
+   const url = `${this.baseUrl}/products?id=${id}`
+   return this.http.get(url).pipe(
+    ( (resp)=>resp),
+    catchError(error => of(error))
+   )
+
 }
 getProducts(limit:number, offset:number) {
   const url = `${this.baseUrl}/products?limit=${limit}&offset=${offset}`;

@@ -31,10 +31,13 @@ export class ProductComponent {
     private service: DashboardService
   ) { }
 
+get Product(){
+  console.log('get en el servicio', this.service.getProduct);
 
+  return this.service.getProduct
+}
 
   ngOnInit() {
-
     this.getProducts()
     // const limit = 20;
     // this.offset = (this.currentPage - 1) * limit;
@@ -51,11 +54,9 @@ export class ProductComponent {
 
 
   getProducts() {
-
     const limit = 5;
     this.offset = (this.currentPage - 1) * limit;
     //console.log('ofdrrt al principio', this.offset);
-
     if (this.offset < 0) {
       this.offset = 0
     }
@@ -78,8 +79,9 @@ export class ProductComponent {
   addProduct() {
     this.router.navigateByUrl('/dashboard/AddProducts')
   }
-  getProduct() {
-
+  edit(id:number){
+  // this.service.editProduct(id)
+  this.router.navigateByUrl(`/dashboard/EditProduct/:${id}`)
   }
 
   deleteProduct(id: number) {

@@ -20,27 +20,27 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
   registerForm: FormGroup = this.fb.group({
     name: [
       '',
       [
         Validators.required,
-        // Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
+        Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
       ],
     ],
     lastName: [
       '',
       [
         Validators.required,
-        // Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
+        Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
       ],
     ],
     phone: [
       '',
       [
         Validators.required,
-        //Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
+        Validators.pattern('[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+')
       ],
     ],
     email: [
@@ -54,7 +54,7 @@ export class RegisterComponent {
       '',
       [
         Validators.required,
-        //  Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
       ],
     ],
     confirmPassword: [
@@ -62,7 +62,7 @@ export class RegisterComponent {
       [
         Validators.required,
         this.passwordMatch,
-        // Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$')
       ],
     ],
   });
@@ -71,10 +71,10 @@ export class RegisterComponent {
     const { name, lastName, phone, email, password } = this.registerForm.value;
     const user = { email, password };
 
-    this.authService.register(name, lastName, phone , user).subscribe((resp) => {
+    this.authService.register(name, lastName, phone, user).subscribe((resp) => {
       //todo funciona, sale swal, y entra al dashboard
-     // const val = Object.values(resp);
-     // console.log('resputa en el coponente', resp);
+      // const val = Object.values(resp);
+      // console.log('resputa en el coponente', resp);
 
       if (resp.error) {
         Swal.fire({

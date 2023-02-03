@@ -10,6 +10,7 @@ import { AddproductsComponent } from './addproducts/addproducts.component';
 import { ProtectedDirective } from '../protected.directive';
 import { OnlyPositveNumberDirective } from './only-positve-number.directive'
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { EditproductComponent } from './editproduct/editproduct.component';
 
 
 
@@ -21,6 +22,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
         AddproductsComponent,
         ProtectedDirective,
         OnlyPositveNumberDirective,
+        EditproductComponent,
 
     ],
     imports: [
