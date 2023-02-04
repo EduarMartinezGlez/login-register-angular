@@ -80,8 +80,11 @@ get Product(){
     this.router.navigateByUrl('/dashboard/AddProducts')
   }
   edit(id:number){
-  // this.service.editProduct(id)
-  this.router.navigateByUrl(`/dashboard/EditProduct/:${id}`)
+
+  this.service.recoveryProdById(id)
+  console.log('funcion edit:', id);
+
+  this.router.navigateByUrl(`/dashboard/EditProducts`)
   }
 
   deleteProduct(id: number) {

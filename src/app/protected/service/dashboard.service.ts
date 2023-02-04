@@ -84,6 +84,35 @@ export class DashboardService {
       catchError(error => of(error))
     )
   }
+  updateForm(id:number, file: File, productname: string, category: string, price: string, productdetails: string) {
+
+     console.log('el archivo y la data en el form', productname, category, price, productdetails);
+     const formData = new FormData();
+     formData.append('file', file);
+     formData.append('name', productname);
+     formData.append('category', category);
+     formData.append('price', price);
+     formData.append('description', productdetails);
+     const url = `${this.baseUrl}/products/${id}`;
+     return this.http.patch<AddProdResponse>(url, formData).pipe(
+       map(resp => {
+         console.log('el resp map en el servivio de post', resp);
+         this._product = {
+               id: resp.id!,
+               name: resp.name!,
+               categoryId: resp.categoryId!,
+             //  brand: resp.brand!,
+               price: resp.price!,
+               description: resp.description!,
+               image: resp.image!
+             }
+            // localStorage.('lastItem', this._product)
+         console.log('el resp map en el servivio de post el _product', this._product);
+
+         resp}),
+       catchError(error => of(error))
+     )
+   }
 
 getCategory(){
   const url = `${this.baseUrl}/categories`;
@@ -105,17 +134,19 @@ deleteProd(id:number){
   )
 }
 editProduct(id: number, body: object){
-   // const url = `${this.baseUrl}/products?id=${id}`
-  
+    const url = `${this.baseUrl}/products?id/:${id}`
+
 }
 recoveryProdById(id:number){
   this._id = id
-   const url = `${this.baseUrl}/products?id=${id}`
+  //console.log('en el recover del servicio');
+
+   const url = `${this.baseUrl}/products/${id}`
    return this.http.get(url).pipe(
-    ( (resp)=>resp),
+    ( (resp)=>
+    resp),
     catchError(error => of(error))
    )
-
 }
 getProducts(limit:number, offset:number) {
   const url = `${this.baseUrl}/products?limit=${limit}&offset=${offset}`;

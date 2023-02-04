@@ -55,7 +55,7 @@ export class AddproductsComponent {
     productname: ['', [Validators.required]],
     category: ['', [Validators.required]],
     brand: ['', [Validators.required]],
-    price: ['',this.validateValue, [Validators.required]],
+    price: ['', [Validators.required]],
     selectedValue: ['', [Validators.required]],
     productdetails: ['', [Validators.required]],
   });
@@ -64,7 +64,7 @@ export class AddproductsComponent {
   * If the new value is less than 1 or if the new value is not a number, then set the value to 0
   * @param {number} newValue - The value that the user has entered.
   */
-  validateValue(newValue: number) {
+ async validateValue(newValue: number) {
     const pattern = /^[0-9]*$/;
     if (newValue == null) {
       this.value = 0;
