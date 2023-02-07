@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DashboardService } from "../service/dashboard.service";
 
@@ -18,14 +19,17 @@ export class EditproductComponent implements OnInit{
     private http: HttpClient,
     private router: Router,){}
 
-  selectedFile!: File;
-  value: Number = 0;
-  err: boolean = false;
-  imageName: string = '';
-  resp!: any;
-  selectedValue:any
-  private baseUrl = environment.baseUrl
-  property:any
+    selectedFile!: File;
+    value: Number = 0;
+    err: boolean = false;
+    imageName: string = '';
+    categoryId!: number;
+    categories!:any
+    categoryName!:string
+    resp!: any;
+    selectedValue:any
+    private baseUrl = environment.baseUrl
+    property:any
 
   Form: FormGroup = this.formBuilder.group({
     productname: ['', [Validators.required]],
@@ -69,13 +73,26 @@ export class EditproductComponent implements OnInit{
         response});
       this.router.navigateByUrl('/dashboard/Products')
   }
+  // getData() {
+  // const url = `${this.baseUrl}/categories`;
+  //   return this.http.get<{[key: string]: any}>(url);
+  // }
 
   ngOnInit() {
-    // get idProd(){
-    //   return this.service.idProd
-    // }
-    console.log('el Oinit');
+    this.service.getCategory().pipe(
+      map(array => array['map']((element: { name: any; }) => element.name))
+    ).subscribe(names => {
+      this.categories= names
+      });
 
+
+
+    this.service.getCategory().subscribe(arg =>{
+    //  this.property = arg
+   //   this.categoryId = this.property.
+      console.log('poperty obtener categorias', arg);
+    })
+    this.getcategory()
     this.recoveryproduct()
 
   }
@@ -83,12 +100,25 @@ export class EditproductComponent implements OnInit{
  //   console.log('en el get del servicio', this.service.idProd);
       return this.service.idProd
     }
+    get idCategory(){
+      return
+    }
   recoveryproduct(){
     this.service.recoveryProdById(this.idProd)
     .subscribe(arg =>{
       this.property = arg
-      console.log('poperty', this.property);
-    }
-    );
+      this.categoryId = this.property.categoryId
+      this.service.getCategoryById(this.categoryId).subscribe(
+        (arg) =>{
+          console.log('en el coponete buscado el nobre de categoria',arg.name);
+          this.categoryName =arg.name
+        }
+      )
+      console.log('poperty', this.categoryId);
+    })
   }
-}
+
+  getcategory(){
+
+  }
+  }

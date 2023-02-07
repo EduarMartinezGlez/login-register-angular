@@ -43,10 +43,7 @@ export class AddproductsComponent {
     this.getData().pipe(
       map(array => array['map']((element: { name: any; }) => element.name))
     ).subscribe(names => {
-     // console.log('los nombre', names);
       this.resp= names
-     // console.log('array', this.resp);
-
       });
 
   }

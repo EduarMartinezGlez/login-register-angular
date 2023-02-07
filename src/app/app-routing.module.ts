@@ -9,6 +9,11 @@ const routes: Routes = [
     loadChildren:()=> import('./auth/auth.module').then(m=>m.AuthModule)
   },
   {
+     path:'product',
+     loadChildren:()=> import('./showroom/showroom.module').then(m=>m.ShowroomModule)
+  },
+
+  {
     path: 'dashboard',
     loadChildren:()=> import('./protected/protected.module').then(m=>m.ProtectedModule),
     // canActivate:[ValidTokenGuard],

@@ -14,7 +14,8 @@ export class DashboardService {
 
   private baseUrl = environment.baseUrl;
   private _product!: Product
-  private _category!: Category
+  private _categoryId!: number
+  private category:[]=[]
   private _id!:number
   private visitors: any
   private data:any
@@ -31,20 +32,21 @@ export class DashboardService {
   }
   get getProduct(){
     console.log('en el get de servicio ', this._product);
-
     return  {...this._product}
   }
 
+ /**
+  * It returns the value of the private variable _id.
+  * @returns The id of the product
+  */
   get idProd(){
     return this._id
-  }
-  get category(){
-    return{ ...this._category}
   }
 
   countCostumers() {
     const url = `${this.baseUrl}/customers/count`;
     this.http.get(url).subscribe(data => {
+
       this.visitors = data
     });
     return this.visitors
@@ -55,9 +57,8 @@ export class DashboardService {
     return this.http.get(url)
   }
 
-  sendForm(file: File, productname: string, category: string, price: string, productdetails: string) {
+  sendForm(file: File, productname: string, category: string, price: string, productdetails: string) {  // console.log('el archivo y la data en el form', productname, category, price, productdetails);
 
-   // console.log('el archivo y la data en el form', productname, category, price, productdetails);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('name', productname);
@@ -84,9 +85,8 @@ export class DashboardService {
       catchError(error => of(error))
     )
   }
-  updateForm(id:number, file: File, productname: string, category: string, price: string, productdetails: string) {
 
-     console.log('el archivo y la data en el form', productname, category, price, productdetails);
+  updateForm(id:number, file: File, productname: string, category: string, price: string, productdetails: string) {
      const formData = new FormData();
      formData.append('file', file);
      formData.append('name', productname);
@@ -115,28 +115,29 @@ export class DashboardService {
    }
 
 getCategory(){
-  const url = `${this.baseUrl}/categories`;
+    const url = `${this.baseUrl}/categories`;
+      return this.http.get<{[key: string]: any}>(url);
+    }
+
+getCategoryById(id:number){
+  const url = `${this.baseUrl}/categories/${id}`;
     return this.http.get(url).pipe(
-      map(resp => {
-       const response = Object.entries(resp).forEach(([key, value]) => {
 
-          })
+        ( (resp)=>
+        resp),
+        catchError(error => of(error))
+       )
 
-          return response
-        }
-    )
-    )
 }
+
+
 deleteProd(id:number){
   const url = `${this.baseUrl}/products/${id}`;
   return this.http.delete(url).pipe(
   catchError(error => of(error))
   )
 }
-editProduct(id: number, body: object){
-    const url = `${this.baseUrl}/products?id/:${id}`
 
-}
 recoveryProdById(id:number){
   this._id = id
   //console.log('en el recover del servicio');

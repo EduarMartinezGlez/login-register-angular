@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { DashboardService } from '../service/dashboard.service';
@@ -14,13 +13,12 @@ import { DashboardService } from '../service/dashboard.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   currentPage = 1;
   count: any
   rows: any
   offset: number = 1
   data$:Observable<any> | undefined
-
   private baseUrl = environment.baseUrl
   product: any[] = []
   property: any;
@@ -31,27 +29,9 @@ export class ProductComponent {
     private service: DashboardService
   ) { }
 
-get Product(){
-  console.log('get en el servicio', this.service.getProduct);
-
-  return this.service.getProduct
-}
-
   ngOnInit() {
     this.getProducts()
-    // const limit = 20;
-    // this.offset = (this.currentPage - 1) * limit;
-    // this.service.getProducts(limit,this.offset).subscribe((resp)=>{
-    //   console.log('la resp en el componete',resp);
-    //   resp
-    // })
-    // const data =  this.service.getProduct
-
-    // console.log('la data product en el oninit product',data)
-    //this.getProducts()
-
   }
-
 
   getProducts() {
     const limit = 5;
@@ -79,12 +59,11 @@ get Product(){
   addProduct() {
     this.router.navigateByUrl('/dashboard/AddProducts')
   }
+
+
   edit(id:number){
-
   this.service.recoveryProdById(id)
-  console.log('funcion edit:', id);
-
-  this.router.navigateByUrl(`/dashboard/EditProducts`)
+  this.router.navigateByUrl('/dashboard/EditProducts')
   }
 
   deleteProduct(id: number) {
